@@ -8,22 +8,24 @@ import Login from "../pages/Login/Login/Login";
 import Register from "../pages/Login/ragister/Register";
 import PrivateRoute from "./pryvetRoutes/PrivateRoute";
 import Terms from "../pages/sheard/Trams/Terms";
+import Error from "../Error/Error";
 
 
 
 const router = createBrowserRouter([
     {
         path: '/',
+        errorElement: <Error />,
         element: <LoginLayout></LoginLayout>,
-        children:[
+        children: [
             {
                 path: '/',
                 element: <Navigate to="/category/0"></Navigate>
 
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path: '/login',
+                element: <Login></Login>
 
             },
             {
@@ -43,18 +45,18 @@ const router = createBrowserRouter([
             {
                 path: ':id',
                 element: <Category></Category>,
-                loader: ({params})=> fetch(`https://the-news-dragon-server-aminul-islam-sajid.vercel.app/categories/${params.id}`)
+                loader: ({ params }) => fetch(`https://the-news-dragon-server-aminul-islam-sajid.vercel.app/categories/${params.id}`)
             }
         ]
     },
     {
-        path:'news',
+        path: 'news',
         element: <NewsLayout></NewsLayout>,
-        children:[
+        children: [
             {
-                path:':id',
+                path: ':id',
                 element: <PrivateRoute><News></News></PrivateRoute>,
-                loader: ({params}) => fetch(`https://the-news-dragon-server-aminul-islam-sajid.vercel.app/news/${params.id}`)
+                loader: ({ params }) => fetch(`https://the-news-dragon-server-aminul-islam-sajid.vercel.app/news/${params.id}`)
             }
         ]
     }
